@@ -1,5 +1,6 @@
 // main.dart
 import 'package:flutter/material.dart';
+import 'package:link_life/screens/auth/signup_screen.dart';
 import 'package:link_life/screens/onboarding/intro_screen.dart';
 import 'package:link_life/screens/onboarding/welcome_screen.dart';
 
