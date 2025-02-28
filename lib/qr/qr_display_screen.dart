@@ -4,6 +4,8 @@ import 'package:qr_flutter/qr_flutter.dart';
 class QRDisplayScreen extends StatelessWidget {
   final String qrData = "Sample QR Code Data";
 
+  const QRDisplayScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppointmentBookingScreen extends StatefulWidget {
+  const AppointmentBookingScreen({super.key});
+
   @override
   _AppointmentBookingScreenState createState() =>
       _AppointmentBookingScreenState();
@@ -46,8 +48,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
             alignment: Alignment.centerLeft,
             child: ElevatedButton(
               onPressed: () => _showBookingModal(context),
-              child: Text('Book Appointment'),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: Text('Book Appointment'),
             ),
           ),
           Expanded(
@@ -98,21 +100,19 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
               children: [
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(labelText: 'Select Hospital'),
-                  items:
-                      hospitals.map((String hospital) {
-                        return DropdownMenuItem<String>(
-                          value: hospital,
-                          child: Text(hospital),
-                        );
-                      }).toList(),
+                  items: hospitals.map((String hospital) {
+                    return DropdownMenuItem<String>(
+                      value: hospital,
+                      child: Text(hospital),
+                    );
+                  }).toList(),
                   onChanged: (value) {
                     setState(() {
                       selectedHospital = value;
                     });
                   },
-                  validator:
-                      (value) =>
-                          value == null ? 'Please select a hospital' : null,
+                  validator: (value) =>
+                      value == null ? 'Please select a hospital' : null,
                 ),
                 SizedBox(height: 10),
                 TextFormField(
@@ -134,11 +134,9 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                       });
                     }
                   },
-                  validator:
-                      (value) =>
-                          value == null || value.isEmpty
-                              ? 'Please select a date'
-                              : null,
+                  validator: (value) => value == null || value.isEmpty
+                      ? 'Please select a date'
+                      : null,
                 ),
               ],
             ),
@@ -166,8 +164,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                   Navigator.of(context).pop();
                 }
               },
-              child: Text('Submit'),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              child: Text('Submit'),
             ),
           ],
         );

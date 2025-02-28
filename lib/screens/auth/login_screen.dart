@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:link_life/events/event_discovery_screen.dart';
+import 'package:link_life/screens/auth/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,6 +18,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text("Login"),
+        centerTitle: true,
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 50.0),
@@ -46,9 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  validator:
-                      (value) =>
-                          value!.isEmpty ? 'Enter your email or phone' : null,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Enter your email or phone' : null,
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -60,8 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  validator:
-                      (value) => value!.isEmpty ? 'Enter your password' : null,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Enter your password' : null,
                 ),
                 const SizedBox(height: 10),
                 Align(
@@ -79,9 +84,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Authentication logic here
-                      }
+                      // if (_formKey.currentState!.validate()) {
+                      //   // Authentication logic here
+                      // }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EventDiscoveryScreen()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red.shade700,
@@ -102,7 +112,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text('Don’t have an account?'),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpScreen()),
+                        );
+                      },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.red.shade700),

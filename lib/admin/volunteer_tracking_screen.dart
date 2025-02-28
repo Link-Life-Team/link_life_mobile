@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class VolunteerTrackingScreen extends StatelessWidget {
+  const VolunteerTrackingScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

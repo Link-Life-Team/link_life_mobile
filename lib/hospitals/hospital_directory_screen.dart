@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HospitalDirectoryScreen extends StatelessWidget {
+  const HospitalDirectoryScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
