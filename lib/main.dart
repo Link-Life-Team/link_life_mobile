@@ -25,7 +25,7 @@ void main() {
 }
 
 class LinkLifeApp extends StatelessWidget {
-  const LinkLifeApp({Key? key}) : super(key: key);
+  const LinkLifeApp({super.key});
 
   @override
   Widget build(BuildContext context) {
