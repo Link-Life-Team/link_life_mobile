@@ -32,7 +32,7 @@ class LinkLifeApp extends StatelessWidget {
     return MaterialApp(
       title: 'LinkLife Rwanda',
       theme: ThemeData(primarySwatch: Colors.red),
-      initialRoute: '/welcome',
+      initialRoute: '/appointmentBooking',
       routes: {
         '/welcome': (context) => WelcomeScreen(),
         '/intro': (context) => IntroScreen(),
