@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:dash_chat_2/dash_chat_2.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 
 class EventDiscoveryScreen extends StatelessWidget {
   final List<Map<String, String>> events = [
@@ -10,6 +12,7 @@ class EventDiscoveryScreen extends StatelessWidget {
       "date": "2023-10-15",
       "startTime": "10:00 AM",
       "endTime": "2:00 PM",
+      "eventLink": "https://www.bloodcamp.com/event1"
     },
     {
       "eventName": "Health Checkup Camp",
@@ -18,21 +21,101 @@ class EventDiscoveryScreen extends StatelessWidget {
       "date": "2023-10-20",
       "startTime": "9:00 AM",
       "endTime": "1:00 PM",
+      "eventLink": "https://www.healthcamp.com/event2"
     },
   ];
 
   EventDiscoveryScreen({super.key});
 
-  void _openChatModal(BuildContext context) {
+  void _openShareOptions(BuildContext context, Map<String, String> event) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // Full-screen modal
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) => SizedBox(
-        height: MediaQuery.of(context).size.height * 0.9, // 90% height
-        child: ChatPage(),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Share ${event['eventName']}",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 15,
+                children: [
+                  _buildShareButton(
+                      context, FontAwesomeIcons.whatsapp, "WhatsApp", () {
+                    FlutterShareMe().shareToWhatsApp(
+                      msg: _getShareMessage(event),
+                    );
+                  }),
+                  _buildShareButton(context, Icons.facebook, "Facebook", () {
+                    FlutterShareMe().shareToFacebook(
+                      url: event['eventLink']!,
+                      msg: _getShareMessage(event),
+                    );
+                  }),
+                  _buildShareButton(context, Icons.email, "Email", () {
+                    Share.share(
+                      _getShareMessage(event),
+                      subject: "Join this Event: ${event['eventName']}",
+                    );
+                  }),
+                  _buildShareButton(context, Icons.message, "SMS", () {
+                    FlutterShareMe().shareToSystem(
+                      msg: _getShareMessage(event),
+                    );
+                  }),
+                  _buildShareButton(context, Icons.copy, "Copy Link", () {
+                    Share.share(event['eventLink']!);
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Event link copied to clipboard!"),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  }),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  String _getShareMessage(Map<String, String> event) {
+    return '''
+📅 *${event['eventName']}*
+🏥 ${event['hospitalName']}
+📍 ${event['address']}
+📆 Date: ${event['date']}
+⏰ Time: ${event['startTime']} - ${event['endTime']}
+
+🔗 Join us: ${event['eventLink']} ❤️
+''';
+  }
+
+  Widget _buildShareButton(
+      BuildContext context, IconData icon, String text, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircleAvatar(
+            radius: 25,
+            backgroundColor: Colors.red.shade100,
+            child: Icon(icon, size: 30, color: Colors.red),
+          ),
+          const SizedBox(height: 8),
+          Text(text, style: TextStyle(fontSize: 14)),
+        ],
       ),
     );
   }
@@ -46,7 +129,7 @@ class EventDiscoveryScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: events.length,
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         itemBuilder: (context, index) {
           final event = events[index];
           return Card(
@@ -60,22 +143,26 @@ class EventDiscoveryScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListTile(
-                    leading: Icon(Icons.event, color: Colors.red),
+                    leading: const Icon(Icons.event, color: Colors.red),
                     title: Text(
                       event['eventName']!,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 5),
-                        Text("Hospital: ${event['hospitalName']}"),
-                        Text("Address: ${event['address']}"),
-                        Text("Date: ${event['date']}"),
+                        const SizedBox(height: 5),
+                        Text("🏥 Hospital: ${event['hospitalName']}"),
+                        Text("📍 Address: ${event['address']}"),
+                        Text("📆 Date: ${event['date']}"),
                         Text(
-                            "Time: ${event['startTime']} - ${event['endTime']}"),
+                            "⏰ Time: ${event['startTime']} - ${event['endTime']}"),
                       ],
+                    ),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.share, color: Colors.red),
+                      onPressed: () => _openShareOptions(context, event),
                     ),
                   ),
                   Align(
@@ -89,7 +176,7 @@ class EventDiscoveryScreen extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {},
-                      child: Text("View Details"),
+                      child: const Text("View Details"),
                     ),
                   ),
                 ],
@@ -97,49 +184,6 @@ class EventDiscoveryScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red,
-        child: Icon(Icons.chat, color: Colors.white),
-        onPressed: () => _openChatModal(context),
-      ),
-    );
-  }
-}
-
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
-
-  @override
-  State<ChatPage> createState() => _ChatPageState();
-}
-
-class _ChatPageState extends State<ChatPage> {
-  final ChatUser _currentUser = ChatUser(id: '1', firstName: 'User');
-  final ChatUser _gptChatUser = ChatUser(id: '2', firstName: "ChatBot");
-
-  final List<ChatMessage> _messages = [];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text('Chatbot', style: TextStyle(color: Colors.white)),
-      ),
-      body: DashChat(
-        currentUser: _currentUser,
-        messageOptions: const MessageOptions(
-          currentUserContainerColor: Colors.black,
-          containerColor: Colors.red,
-          textColor: Colors.white,
-        ),
-        onSend: (ChatMessage m) {
-          setState(() {
-            _messages.insert(0, m);
-          });
-        },
-        messages: _messages,
       ),
     );
   }
