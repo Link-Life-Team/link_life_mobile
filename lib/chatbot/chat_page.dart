@@ -24,7 +24,7 @@ class _ChatPageState extends State<ChatPage> {
     lastName: 'Bot',
   );
 
-  List<ChatMessage> _messages = <ChatMessage>[];
+  final List<ChatMessage> _messages = <ChatMessage>[];
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +53,13 @@ class _ChatPageState extends State<ChatPage> {
       _messages.insert(0, m);
     });
 
-    List<Map<String, String>> _messageHistory =
-        _messages.reversed.map((m) {
-          if (m.user == _currentUser) {
-            return {"role": "user", "content": m.text};
-          } else {
-            return {"role": "assistant", "content": m.text};
-          }
-        }).toList();
+    List<Map<String, String>> messageHistory = _messages.reversed.map((m) {
+      if (m.user == _currentUser) {
+        return {"role": "user", "content": m.text};
+      } else {
+        return {"role": "assistant", "content": m.text};
+      }
+    }).toList();
 
     final response = await http.post(
       Uri.parse('https://models.github.ai/inference/chat/completions'),
@@ -69,7 +68,7 @@ class _ChatPageState extends State<ChatPage> {
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
-        "messages": _messageHistory,
+        "messages": messageHistory,
         "model": "gpt-4o",
         "temperature": 1,
         "max_tokens": 4096,
