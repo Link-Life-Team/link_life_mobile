@@ -232,6 +232,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
   html:
     dependency: transitive
     description:
@@ -264,6 +265,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.19.0"
+=======
+>>>>>>> 0103ef7 (Starter files for linklife rwanda)
   leak_tracker:
     dependency: transitive
     description:
@@ -327,7 +330,11 @@ packages:
       sha256: e3641ec5d63ebf0d9b41bd43201a66e3fc79a65db5f61fc181f04cd27aab950c
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "1.16.0"
+=======
+    version: "1.15.0"
+>>>>>>> 0103ef7 (Starter files for linklife rwanda)
   mobile_scanner:
     dependency: "direct main"
     description:
@@ -336,6 +343,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.6"
+<<<<<<< HEAD
   octo_image:
     dependency: transitive
     description:
@@ -344,6 +352,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+=======
+>>>>>>> 0103ef7 (Starter files for linklife rwanda)
   path:
     dependency: transitive
     description:
@@ -352,6 +362,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+<<<<<<< HEAD
   path_provider:
     dependency: transitive
     description:
@@ -408,6 +419,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.6"
+=======
+>>>>>>> 0103ef7 (Starter files for linklife rwanda)
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -432,6 +445,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
+<<<<<<< HEAD
   rxdart:
     dependency: transitive
     description:
@@ -440,6 +454,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
+=======
+>>>>>>> 0103ef7 (Starter files for linklife rwanda)
   sky_engine:
     dependency: transitive
     description: flutter
@@ -693,6 +709,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+<<<<<<< HEAD
   xdg_directories:
     dependency: transitive
     description:
@@ -704,3 +721,8 @@ packages:
 sdks:
   dart: ">=3.7.0 <4.0.0"
   flutter: ">=3.27.0"
+=======
+sdks:
+  dart: ">=3.7.0-209.1.beta <4.0.0"
+  flutter: ">=3.22.0"
+>>>>>>> 0103ef7 (Starter files for linklife rwanda)
