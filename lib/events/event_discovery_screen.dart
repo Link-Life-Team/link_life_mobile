@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:link_life/chatbot/chat_page.dart';
 import 'package:share_plus/share_plus.dart';
 
 class EventDiscoveryScreen extends StatelessWidget {
@@ -49,15 +49,17 @@ class EventDiscoveryScreen extends StatelessWidget {
                 children: [
                   _buildShareButton(
                       context, FontAwesomeIcons.whatsapp, "WhatsApp", () {
-                    FlutterShareMe().shareToWhatsApp(
-                      msg: _getShareMessage(event),
-                    );
+                    // FlutterShareMe().shareToWhatsApp(
+                    //   msg: _getShareMessage(event),
+                    // );
+                    Share.share(event['eventLink']!);
                   }),
                   _buildShareButton(context, Icons.facebook, "Facebook", () {
-                    FlutterShareMe().shareToFacebook(
-                      url: event['eventLink']!,
-                      msg: _getShareMessage(event),
-                    );
+                    // FlutterShareMe().shareToFacebook(
+                    //   url: event['eventLink']!,
+                    //   msg: _getShareMessage(event),
+                    // );
+                    Share.share(event['eventLink']!);
                   }),
                   _buildShareButton(context, Icons.email, "Email", () {
                     Share.share(
@@ -66,9 +68,10 @@ class EventDiscoveryScreen extends StatelessWidget {
                     );
                   }),
                   _buildShareButton(context, Icons.message, "SMS", () {
-                    FlutterShareMe().shareToSystem(
-                      msg: _getShareMessage(event),
-                    );
+                    // FlutterShareMe().shareToSystem(
+                    //   msg: _getShareMessage(event),
+                    // );
+                    Share.share(event['eventLink']!);
                   }),
                   _buildShareButton(context, Icons.copy, "Copy Link", () {
                     Share.share(event['eventLink']!);
@@ -86,6 +89,24 @@ class EventDiscoveryScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  void _openChatModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+
+      isScrollControlled: true, // Full-screen modal
+
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+
+      builder: (context) => SizedBox(
+        height: MediaQuery.of(context).size.height * 0.9, // 90% height
+
+        child: ChatPage(),
+      ),
     );
   }
 
@@ -184,6 +205,11 @@ class EventDiscoveryScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        child: Icon(Icons.chat, color: Colors.white),
+        onPressed: () => _openChatModal(context),
       ),
     );
   }

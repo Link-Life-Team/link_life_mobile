@@ -31,6 +31,7 @@ class LinkLifeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'LinkLife Rwanda',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.red),
       initialRoute: '/welcome',
       routes: {
