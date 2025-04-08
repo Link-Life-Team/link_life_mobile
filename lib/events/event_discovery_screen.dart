@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -47,16 +46,10 @@ class EventDiscoveryScreen extends StatelessWidget {
               Wrap(
                 spacing: 15,
                 children: [
-                  _buildShareButton(
-                      context, FontAwesomeIcons.whatsapp, "WhatsApp", () {
-                    FlutterShareMe().shareToWhatsApp(
-                      msg: _getShareMessage(event),
-                    );
-                  }),
                   _buildShareButton(context, Icons.facebook, "Facebook", () {
-                    FlutterShareMe().shareToFacebook(
-                      url: event['eventLink']!,
-                      msg: _getShareMessage(event),
+                    Share.share(
+                      _getShareMessage(event),
+                      subject: "Join this Event: ${event['eventName']}",
                     );
                   }),
                   _buildShareButton(context, Icons.email, "Email", () {
@@ -66,8 +59,9 @@ class EventDiscoveryScreen extends StatelessWidget {
                     );
                   }),
                   _buildShareButton(context, Icons.message, "SMS", () {
-                    FlutterShareMe().shareToSystem(
-                      msg: _getShareMessage(event),
+                    Share.share(
+                      _getShareMessage(event),
+                      subject: "Join this Event: ${event['eventName']}",
                     );
                   }),
                   _buildShareButton(context, Icons.copy, "Copy Link", () {
