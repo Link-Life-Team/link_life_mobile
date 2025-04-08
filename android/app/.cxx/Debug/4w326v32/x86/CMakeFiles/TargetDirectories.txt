@@ -1,0 +1,2 @@
+C:/Users/LENOVO/Documents/aside_apps/link_life_mobile/android/app/.cxx/Debug/4w326v32/x86/CMakeFiles/edit_cache.dir
+C:/Users/LENOVO/Documents/aside_apps/link_life_mobile/android/app/.cxx/Debug/4w326v32/x86/CMakeFiles/rebuild_cache.dir
