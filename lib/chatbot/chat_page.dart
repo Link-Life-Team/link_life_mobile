@@ -24,7 +24,7 @@ class _ChatPageState extends State<ChatPage> {
     lastName: 'Bot',
   );
 
-  final List<ChatMessage> _messages = <ChatMessage>[];
+  List<ChatMessage> _messages = <ChatMessage>[];
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _ChatPageState extends State<ChatPage> {
       _messages.insert(0, m);
     });
 
-    List<Map<String, String>> messageHistory = _messages.reversed.map((m) {
+    List<Map<String, String>> _messageHistory = _messages.reversed.map((m) {
       if (m.user == _currentUser) {
         return {"role": "user", "content": m.text};
       } else {
@@ -68,7 +68,8 @@ class _ChatPageState extends State<ChatPage> {
         'Content-Type': 'application/json',
       },
       body: jsonEncode({
-        "messages": messageHistory,
+        "publisher": "openai",
+        "messages": _messageHistory,
         "model": "gpt-4o",
         "temperature": 1,
         "max_tokens": 4096,
@@ -77,7 +78,8 @@ class _ChatPageState extends State<ChatPage> {
     );
 
     if (response.statusCode == 200) {
-      final responseBody = jsonDecode(response.body);
+      // final responseBody = jsonDecode(response.body);
+      final responseBody = jsonDecode(utf8.decode(response.bodyBytes));
       for (var element in responseBody['choices']) {
         setState(() {
           _messages.insert(

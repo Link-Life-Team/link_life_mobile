@@ -19,8 +19,15 @@ import 'package:link_life/screens/onboarding/welcome_screen.dart';
 import 'package:link_life/settings/edit_profile_screen.dart';
 import 'package:link_life/settings/notification_settings_screen.dart';
 import 'package:link_life/settings/privacy_settings_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; // import dotenv
 
-void main() {
+void main() async {
+  // Make sure Flutter bindings are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load .env file
+  await dotenv.load();
+
   runApp(const LinkLifeApp());
 }
 
