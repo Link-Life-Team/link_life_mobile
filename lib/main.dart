@@ -8,6 +8,7 @@ import 'package:link_life/events/event_discovery_screen.dart';
 import 'package:link_life/followup/eligibility_reminder_screen.dart';
 import 'package:link_life/followup/recovery_tips_screen.dart';
 import 'package:link_life/hospitals/hospital_directory_screen.dart';
+import 'package:link_life/map/google_map.dart';
 import 'package:link_life/notifications/notifications_screen.dart';
 import 'package:link_life/qr/qr_display_screen.dart';
 import 'package:link_life/qr/qr_scanner_screen.dart';
@@ -62,6 +63,7 @@ class LinkLifeApp extends StatelessWidget {
         '/privacySettings': (context) => PrivacySettingsScreen(),
         '/eventManagement': (context) => EventManagementScreen(),
         '/volunteerTracking': (context) => VolunteerTrackingScreen(),
+        '/map': (context) => MapPage(),
       },
     );
   }
